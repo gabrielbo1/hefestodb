@@ -21,4 +21,4 @@
 
 pub mod random;
 pub mod arena;
-mod crc32;
+pub mod crc32c;
