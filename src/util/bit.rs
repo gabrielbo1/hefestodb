@@ -19,9 +19,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-pub mod random;
-pub mod arena;
-pub mod crc32c;
-pub mod atomic;
-pub mod bit;
-pub mod cache;
+#[inline]
+pub fn memcpy(dst: &mut [u8], src: &[u8]) {
+    assert!(dst.len() >= src.len());
+    unsafe { ::std::ptr::copy_nonoverlapping(src.as_ptr(), dst.as_mut_ptr(), src.len()) }
+}
+
+extern "C" {
+    #[inline]
+    pub fn memcmp(s1: *const u8, s2: *const u8, n: usize) -> i32;
+}
